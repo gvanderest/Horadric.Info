@@ -1,0 +1,195 @@
+/**
+ * Horadric.Info
+ * @author Guillaume VanderEst <gui@exoduslabs.ca>
+ */
+
+@import 'reset.css';
+@import url(http://fonts.googleapis.com/css?family=Gentium+Basic:400,700);
+
+@font-face { font-family: Diablo; src: url('../fonts/Diablo.otf'); } 
+@font-face { font-family: Diablo; font-weight: bold; src: url('../fonts/Diablo.otf'); }
+
+#content strong, #content b { color: #fff; }
+
+.ExoUI_Errors { border: 1px solid #800; background-color: #faa; color: #800; margin-bottom: 15px; }
+.ExoUI_Errors ul { margin: 10px 20px 10px 40px; }
+.ExoUI_Errors ul li { list-style: outside square; }
+
+form div { margin-bottom: 5px; }
+form .textbox label, form .password label, form .textarea label { display: block; }
+
+html { min-height: 100%; background: #000 url(/app/themes/horadric/img/site-background.jpg) top center no-repeat; background-color: #000; }
+body { min-height: 100%; line-height: 1.5; color: #ccc; font-family: Arial, sans-serif; font-size: 13px; }
+h1, h2, h3, h4, h5, h6, p, ul, ol { margin: 0 0 15px 0; }
+
+h1, h2, #title { font-family: 'Gentium Basic', serif; }
+
+ul { margin-left: 30px; }
+ul li { list-style: outside square; }
+ul ul { margin-bottom: 0; }
+
+h1 { font-size: 30px; color: #fff; }
+h2 { font-size: 24px; color: #ccc; }
+
+input[type=text], input[type=password], input[type=checkbox], textarea { background-color: #222; color: #ccc; border: 1px solid #333; }
+
+a { color: #aa0; }
+a:hover, a:active { color: #cc2; }
+
+h1 + .breadcrumb { margin-top: -20px; }
+.breadcrumb { margin-bottom: 15px; }
+.breadcrumb ul { margin: 0; overflow: auto; }
+.breadcrumb li { float: left; color: #555; list-style: square inside; margin-left: 10px; }
+.breadcrumb li:first-child { list-style: outside none; margin-left: 0; }
+
+/** Vote buttons for social awesome powers **/
+.vote { cursor: default; font-size: 12px; font-style: normal; font-weight: bold; }
+.vote .up, .vote .down, .vote .score { display: inline-block; width: 15px; height: 15px; line-height: 15px; text-align: center; vertical-align: middle; opacity: 0.5; }
+.vote .active { opacity: 1; }
+.vote .score { padding: 0 5px 0 5px; width: auto; opacity: 1; color: #555; }
+.vote .score.active { color: #ccc; }
+.vote .up:hover, .vote .down:hover { opacity: 0.7; }
+.vote .up { background: url(../img/icons/plus-small.png); }
+.vote .down { background: url(../img/icons/minus-small.png); }
+.score.voted { font-size: 12px; width: 30px; height: 15px; text-align: center; }
+.vote .active:hover { opacity: 1 !important; }
+
+.vote.small .up,.vote.small .down { width: 9px; height: 9px; }
+.vote.small .up { background: url(../img/icons/plus-very-small.png); }
+.vote.small .down { background: url(../img/icons/minus-very-small.png); }
+.vote.small .score { line-height: auto; font-size: 9px; padding: 0 3px 0 3px; }
+
+#container, #header, #menu, #footer { width: 90%; max-width: 1200px; min-width: 960px; }
+
+#container { overflow: auto; position: relative; padding: 10px 15px 10px 15px; background: rgba(10, 10, 10, .9); min-height: 500px; box-shadow: 0 0 10px #000; border-radius: 10px; margin: 0 auto 10px auto; }
+
+#title strong, #subtitle { position: absolute; }
+#title strong { font-size: 22px; top: 47px; left: 80px; }
+#title a { text-decoration: none; }
+#subtitle { top: 73px; left: 80px; }
+
+#sidebar { width: 300px; float: right; margin-top: 30px; }
+#sidebar h2 { font-size: 16px; margin: 0 0 5px 10px; }
+#sidebar .sidebar-section { margin-bottom: 10px; background-color: rgba(0,0,0,.6); padding: 15px 15px 5px 0px; border-radius: 6px; border: 1px solid #333; }
+#sidebar .score { font-weight: normal; }
+
+.sidebar-section { padding-left: 15px !important; }
+.sidebar-section dd { color: #555; font-size: 11px; margin-bottom: 10px; }
+.sidebar-section dd a { color: #888; }
+
+#body { margin-right: 310px; margin-bottom: 60px; }
+
+#content { background: url(/app/themes/horadric/img/cube60.png) bottom right no-repeat; }
+
+#header { position: relative; padding: 30px 0 10px 0; margin: 0 auto 0 auto; }
+#header .horadric-ad { width: 728px; height: 90px; background-color: #000; position: absolute; top: 20px; right: 0; }
+
+#menu, #menu ul, #menu li { margin: 0; padding: 0; list-style: outside none; }
+#menu { margin: 0 auto 0 auto; position: relative; z-index: 1000; color: #555; }
+#menu li { opacity: 0.8; display: inline-block; margin-left: 5px; padding: 5px 20px 5px 20px; background: rgba(10, 10, 10, .9); border-top-left-radius: 6px; border-top-right-radius: 6px; }
+#menu li.active, #menu li:hover { opacity: 1; }
+#menu ul li:first-child { margin-left: 0; }
+#menu .active a { color: #fff; font-weight: bold; text-decoration: none; }
+#menu li.account { float: right; }
+#menu li.account em { font-style: normal; font-weight: normal; color: #ccc; }
+#menu li.account strong { font-weight: bold; }
+
+#footer { text-shadow: 0 0 10px #000; color: #333; padding: 0 20px 0 20px; margin: 10px auto 30px auto; text-align: right; font-family: Arial, sans-serif; font-size: 11px; position: relative; }
+#footer a { color: #333; }
+#footer a:hover { color: #ccc; }
+
+#social-media { position: absolute; top: 20px; right: 325px; }
+#social-media div { display: inline; }
+
+#ad-footer { text-align: center; }
+
+
+/**
+ * Item Qualities
+ */
+.quality-junk { color: #666; }
+.quality-common { color: #ccc; }
+.quality-magic { color: #66f; }
+.quality-rare { color: #ff0; }
+.quality-unique { color: #800; }
+a.quality-unique:hover { color: #911; }
+.quality-legendary { color: #f80; }
+.quality-runestone { color: #508; }
+.quality-artifact { color: #060; }
+
+/**
+ * Hover Colors (Item Links)
+ */
+a.quality-junk:hover { color: #888; }
+a.quality-normal:hover { color: #ddd; }
+a.quality-magic:hover { color: #88f; }
+a.quality-rare:hover { color: #dd0; }
+a.quality-legendary:hover { color: #fa2; }
+a.quality-runestone:hover { color: #72a; }
+a.quality-artifact:hover { color: #282; }
+
+.cain-post, .news-story, blockquote.blizzard, .forum-thread .post { overflow: auto; background-color: #000; padding: 10px 15px 10px 15px; border: 1px solid #555; border-radius: 6px; margin-bottom: 15px; padding-bottom: 30px; }
+.cain-post h2, .news-story h2, .news-title, .post-title { margin-bottom: 0; }
+.cain-post-date, .news-story-date, blockquote.blizzard .quote-byline { margin-bottom: 15px; }
+.cain-post-author, .news-story-author, .post-author { text-align: center; float: left; width: 120px; margin-top: 10px; margin-bottom: 10px; }
+.cain-post-author-name, blockquote.blizzard .quote-byline { font-weight: bold; }
+.cain-post-content, .news-story-content, .post-content { margin-left: 135px; }
+blockquote.blizzard .quote-byline, .news-story-date, .cain-post-date, .post-date { padding-bottom: 10px; border-bottom: 1px solid #222; margin-bottom: 10px; }
+.forum-thread .author-signature { padding-top: 10px; border-top: 1px solid #222; margin-top: 10px; }
+.cain-post blockquote, .news-story blockquote, .post blockquote { border: 1px solid #222; padding: 10px 15px 10px 15px; background-color: #111; color: #ccc; }
+.cain-post.blue, blockquote.blizzard { border: 1px solid #18f; color: #18f; }
+.blizzard h2 { color: #18f; font-size: 20px; }
+
+#class-flash object { width: 200px; height: 500px; float: right; margin: 0 20px 0 20px; }
+
+/** Forum Styles **/
+.forum { margin-bottom: 30px; }
+.forum .paginator { text-align: right; display: block; margin: 0 0 15px 0; }
+.forum .paginator * { display: inline; margin: 0; }
+.forum .paginator li { margin-left: 5px; }
+.forum .paginator li.active a { color: #ccc; font-weight: bold; text-decoration: none; }
+.forum table + .paginator { margin: 15px 0 0 0; }
+
+table.forum-index, table.forum-threads { width: 100%; line-height: 1.3; }
+table.forum-index, table.forum-index td, table.forum-index th, table.forum-threads, table.forum-threads td, table.forum-threads th { border: 1px solid #000; }
+table.forum-index th, table.forum-index td, table.forum-threads th, table.forum-threads td { vertical-align: middle; padding: 5px 10px 5px 10px; }
+table.forum-index .forum-description { font-size: 11px; color: #ccc; }
+table.forum-index th.category-name { background-color: #000; font-size: 16px; text-align: left; padding-left: 58px; padding-bottom: 0; }
+table.forum-index .category-heading th { background-color: #000; text-align: left; color: #888; font-size: 11px; font-weight: normal; padding-top: 0; }
+table.forum-index td.forum-stats, table.forum-threads td.thread-stats { font-size: 11px; color: #888; }
+table.forum-index td.forum-latest-post, table.forum-threads td.thread-latest-reply { color: #aaa; font-size: 11px; }
+table.forum-index td.empty, table.forum-threads td.empty { color: #888; }
+table.forum-index td.forum-icon, table.forum-threads td.forum-icon { text-align: center; }
+table.forum-threads th { text-align: left; background-color: #000; }
+table.forum-index .forum-name, table.forum-threads .thread-name { }
+table.forum-threads .forum-empty { color: #ccc; text-align: center !important; }
+table.forum-threads td.thread-stats, table.forum-threads td.thread-score { white-space: nowrap; }
+table.forum-threads td.thread-latest-reply { min-width: 150px; }
+table.forum-threads td.thread-name { width: 100%; }
+
+/** Database Output **/
+table.database { width: 100%; background-color: rgba(0,0,0,0.5); }
+table.database thead th { border: 1px solid #222; border-top: 1px solid #555; border-left: 1px solid #555; background-color: #333; color: #fff; }
+table.database td { border: 1px solid #222; }
+table.database th, table.database td { padding: 5px 10px 5px 10px; text-align: center; }
+table.database th:first-child, table.database td:first-child { text-align: left; }
+
+.forum h1 a { color: #fff; text-decoration: none; }
+
+.forum-legend { margin-top: 30px; }
+.forum-legend td { vertical-align: middle; padding: 5px 10px 5px 10px; }
+
+.forum-thread { margin-top: -20px; }
+.forum-thread .author-title { color: #888; font-size: 11px; }
+.forum-thread .author-guild { font-size: 11px; color: #442; }
+.forum-thread .author-level { color: #888; font-size: 11px; }
+
+.forum .post.anonymous { color: #555; font-style: italic; }
+.forum .reply-form textarea, .forum .post-form textarea { font-family: Arial, sans-serif; font-size: 12px; padding: 5px; width: 400px; height: 150px; }
+.forum .youtube, #home-news .youtube { text-align: center; }
+
+.forum .anonymous-reply-note, .forum .anonymous-thread-note { font-size: 14px; color: #f00; }
+.forum a.unread { color: #800; text-decoration: none; font-size: 11px; }
+
+h1 + h2 { margin-top: -15px; }
+h1 + .back { margin-top: -20px; }

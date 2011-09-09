@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<theme>
+    <namespace>default</namespace>
+    <name>SympoCM Default CMS Template</name>
+    <author>Guillaume VanderEst</author>
+    <email>gui@exodusmedia.ca</email>
+    <website>http://www.sympocm.com/</website>
+    <description></description>
+    <modules>
+        <module namespace="CMS" version="1.0" />
+    </modules>
+</theme>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<module>
+    <namespace>CMS</namespace>
+    <name>Content Management System</name>
+    <version>0.1</version>
+    <released>20110701</released>
+    <author>Guillaume VanderEst</author>
+    <email>info@exodusmedia.ca></email>
+    <website>http://www.sympocm.com/</website>
+    <description>Facilitate creation of website by powering it with a moduluar Content Management system.</description>
+    <permissions>
+        <permission id="admin_login" name="Administrative Login" />
+        <permission_group name="CMS Pages">
+            <permission id="cms_add_page" name="Add CMS Pages" />
+            <permission id="cms_edit_page" name="Edit CMS Pages" />
+            <permission id="cms_delete_page" name="Delete CMS Pages" />
+        </permission_group>
+    </permissions>
+    <applications>
+        <application name="Content Management System" controller="CMS_Application" />
+        <application admin="true" name="CMS Page Editor" controller="CMS_Page_Admin" />
+        <application admin="true" name="CMS Menu Editor" controller="CMS_Menu_Admin" />
+    </applications>
+</module>

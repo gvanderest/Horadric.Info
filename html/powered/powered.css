@@ -1,0 +1,44 @@
+        @font-face { font-family: Diablo; src: url('Diablo.ttf'); } 
+        @font-face { font-family: Diablo; font-weight: bold; src: url('Diablo.ttf'); } 
+
+        @import url(http://fonts.googleapis.com/css?family=Gentium+Basic:400,700);
+        
+        #item-dialog { zoom: 1.05; font-family: 'Gentium Basic', serif; display: none; font-size: 13px; z-index: 1000; background: rgba(0,0,0,0.95); position: absolute; }
+        #item-dialog .corner, #item-dialog .border { position-relative; background: transparent url(img/curve-top-left.png) top left no-repeat; }
+        #item-dialog .top-right { background-image: url(img/curve-top-right.png); background-position: top right; }
+        #item-dialog .bottom-left { background-image: url(img/curve-bottom-left.png); background-position: bottom left; }
+        #item-dialog .bottom-right { background-image: url(img/curve-bottom-right.png); background-position: bottom right; }
+        #item-dialog .middle-left { background: transparent url(img/left-border.png) center left repeat-y; }
+        #item-dialog .middle-right { background: transparent url(img/right-border.png) center right repeat-y; }
+
+#item-dialog .item-basics { line-height: 1.1; min-height: 69px; }
+        #item-dialog .item-info { max-width: 190px; padding: 20px; }
+        #item-dialog .item-sprite { text-align: center; margin-right: 12px; line-height: 60px; float: left; width: 38px; height: 69px; background: transparent url(img/sprite-background.png) top left no-repeat; }
+#item-dialog .item-sprite img { vertical-align: middle; line-height: 60px; }
+
+#item-dialog .item-name { font-family: Diablo, serif; font-size: 16px; font-weight: 700; }
+#item-dialog .item-type, #item-dialog .item-value { color: #dbd69e; }
+#item-dialog var { font-style: normal; }
+
+#item-dialog .item-banner { margin-top: 3px; margin-left: -10px; min-width: 152px; height: 37px; background: url(img/red-fade.png) top left no-repeat; }
+#item-dialog .item-banner var, #item-dialog .item-banner label { line-height: 33px; font-size: 13px; font-weight: bold; color: #fff; text-shadow: 0 0 3px #000, 0 0 3px #000, 0 0 3px #000; }
+#item-dialog .item-banner var { margin-left: 30px; }
+#item-dialog .item-banner label { margin-left: 20px; }
+
+#item-dialog .item-value { margin-left: 15px; }
+#item-dialog .item-value var { color: #fff; margin-left: 3px; padding-right: 10px; background: url(img/coin.png) center right no-repeat; } 
+
+#item-dialog .item-effects { color: #fff; margin-bottom: 10px; font-size: 12px; }
+#item-dialog .item-effects ul { margin: 3px 0 0 0; padding: 0; }
+#item-dialog .item-effects li { line-height: 1.2; margin-bottom: 3px; list-style: inside; list-style-image: url(img/effect-bullet.png);  }
+
+#item-dialog .loading { padding: 50px 70px 50px 70px; color: #fff; display: none; }
+#item-dialog .error { padding: 50px 70px 50px 70px; color: #800; display: none; }
+
+#item-dialog .quality-junk { color: #666; }
+#item-dialog .quality-normal { color: #fff; }
+#item-dialog .quality-magic { color: #66f; }
+#item-dialog .quality-rare { color: #ff0; }
+#item-dialog .quality-legendary { color: #f80; }
+#item-dialog .quality-runestone { color: #508; }
+#item-dialog .quality-artifact { color: #060; }

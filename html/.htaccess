@@ -1,0 +1,18 @@
+php_flag magic_quotes_gpc Off
+
+RewriteEngine On
+
+#RewriteCond %{SERVER_NAME} ^horadric.info$
+#RewriteRule ^(.*) http://horadric.info/$1?%{QUERY_STRING} [L]
+
+# Do not allow direct access to configuration folders
+RewriteCond %{REQUEST_URI} ^/(exo|app)/config
+RewriteRule ^.* / [F]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?_EXO_REQUEST=$1&%{QUERY_STRING} [L]
+
+ErrorDocument 400 /error.php?e=400
+ErrorDocument 401 /error.php?e=401
+ErrorDocument 402 /error.php?e=402
+ErrorDocument 403 /error.php?e=403

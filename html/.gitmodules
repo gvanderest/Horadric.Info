@@ -1,0 +1,6 @@
+[submodule "exo/modules/ExoUI"]
+	path = exo/modules/ExoUI
+	url = git@github.com:exoduslabs/ExoUI.git
+[submodule "exo/modules/ExoBase"]
+	path = exo/modules/ExoBase
+	url = git@github.com:exoduslabs/ExoBase.git

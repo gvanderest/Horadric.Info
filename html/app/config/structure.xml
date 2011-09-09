@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entities>
+    <entity name="people">
+        <attributes>
+            <attribute name="name" type="string" searchable="true" />
+            <attribute name="email" type="string" searchable="true" validation="email" />
+        </attributes>
+        <relationships>
+            <has-many entity="posts" />
+            <has-many name="people" name="friends" />
+        </relationships>
+    </entity>
+    <entity name="forums">
+        <attributes>
+            <attribute name="title" type="string" />
+            <attribute name="body" type="text" />
+        </attributes>
+        <relationships>
+            <has-many entity="posts" />
+        </relationships>
+    </entity>
+    <entity name="posts">
+        <attributes>
+            <attribute name="title" type="string" />
+            <attribute name="body" type="text" />
+        </attributes>
+        <relationships>
+            <has-a name="author" entity="people" />
+        </relationships>
+    </entity>
+    <entity name="items">
+        <attributes>
+            <attribute name="name" type="string" />
+            <attribute name="url" type="string" />
+        </attributes>
+    </entity>
+    <entity name="armors" extends="items">
+        <attributes>
+            <attribute name="slot" type="string" />
+            <attribute name="sockets" type="number" />
+        </attributes>
+    </entity>
+</entities>
