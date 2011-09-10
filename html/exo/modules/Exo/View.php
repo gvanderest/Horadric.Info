@@ -19,19 +19,20 @@ class Exo_View
         global $routes;
 
         $this->controller = $controller;
-        $this->route_id = $controller->route_id;
-
-        if (isset($this->controller->route_id))
+        if ($this->controller)
         {
-            $route = $routes[$this->controller->route_id];
-            if (isset($route['theme']))
+            $this->route_id = $this->controller->route_id;
+
+            if (isset($this->controller->route_id))
             {
-                $this->theme = $route['theme'];
+                $route = $routes[$this->controller->route_id];
+                if (isset($route['theme']))
+                {
+                    $this->theme = $route['theme'];
+                }
             }
         }
     }
-
-
 
     /**
      * Load a view template
