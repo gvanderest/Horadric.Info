@@ -24,9 +24,9 @@ class Item_Reader
         $item_part = 0;
 
 
-        while (TRUE)
+        while (!feof($fh))
         {
-            $read = fread($fh, 4096);
+            $read = fread($fh, 1024);
 
             // for each character
             for ($x = 0; $x < strlen($read); $x++)
@@ -34,7 +34,7 @@ class Item_Reader
                 $char = substr($read, $x, 1);
 
                 // there are null characters coming up..
-                if (ord($char) == 0 || feof($fh)) 
+                if (ord($char) == 0) 
                 { 
                     // if null_count is zero, we just ended a string
                     if ($null_count == 0)
@@ -84,10 +84,7 @@ class Item_Reader
 
                     $null_count++; 
 
-                    if (!feof($fh))
-                    {
-                        continue; 
-                    }
+                    continue; 
                 }
                 elseif ($null_count > 0) 
                 { 
@@ -98,14 +95,22 @@ class Item_Reader
                 }
                 $buffer .= $char;
             }
-
-            // if end of file, break
-            if (feof($fh))
-            {
-                break;
-            }
         }
 
+        // append final
+        $item = new stdClass;
+        $item->id = $item_id;
+        $item->name = $item_name;
+        $item->notes = $item_notes;
+        foreach ($item as $key => $value)
+        {
+            $item->$key = str_replace("\n", '', $value);
+        }
+        $items[] = $item;
+
+        var_dump(count($items));
+        var_dump($items[0]);
+        var_dump($items[count($items)-1]);
         return $items;
     }
 }
@@ -115,5 +120,6 @@ $items = $reader->get_items();
 print(count($items));
 foreach ($items as $item)
 {
+    if ($item->id == 'Bracers_201')
     printf("ID: %s, Name: %s, Notes: %s\n", $item->id, $item->name, $item->notes);
 }

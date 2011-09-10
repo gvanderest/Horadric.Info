@@ -173,6 +173,7 @@ table.database thead th { border: 1px solid #222; border-top: 1px solid #555; bo
 table.database td { border: 1px solid #222; }
 table.database th, table.database td { padding: 5px 10px 5px 10px; text-align: center; }
 table.database th:first-child, table.database td:first-child { text-align: left; }
+table.database .notes { text-align: left; font-size: 11px; color: #888; }
 
 .forum h1 a { color: #fff; text-decoration: none; }
 
