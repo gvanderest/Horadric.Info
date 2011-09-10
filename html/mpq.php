@@ -113,11 +113,16 @@ if (isset($_GET['q']))
 
 $view = new Exo_View();
 $view->theme = 'horadric';
-$view->render('inc/header');
+
+$data = array(
+    '_title' => 'STL Files',
+    '_description' => 'Help me find the patterns/code in these files!'
+);
+
+$view->render('inc/header', $data);
 ?>
 <h1>Horadric STL Files</h1>
-<p>The following files are from the Diablo 3 MPQ data file.  Help me try to find the patterns of these files so that I can write parsers for all of them!</p>
-<p>Some files may have notes beside them as I progress through this massive wall of text, others may be really easy to figure out but I haven't gotten to them yet.</p>
+<p>The following files are from the Diablo 3 MPQ data file.  Help me try to find the patterns of these files so that I can write parsers for all of them! Some files may have notes beside them as I progress through this massive wall of text, others may be really easy to figure out but I haven't gotten to them yet.</p>
 <p><strong style="color: #f00;">The giant current dilemma I'm dealing with is Items.STL's first half. I'm trying to figure out the pattern of all that binary information.</strong></p>
 
 <?php $files = $reader->get_stl_files(); ?>
