@@ -28,6 +28,7 @@
  * By default, there should be some example routes below...
  */
 $routes['items'] = array('/items', 'controller' => 'Horadric_Application#items');
+$routes['item'] = array('/item', 'append_segments' => TRUE, 'controller' => 'Horadric_Application#item');
 $routes['titles'] = array('/titles', 'controller' => 'Horadric_Application#titles');
 $routes['horadric_scrape'] = array('/scrape', 'append_segments' => TRUE, 'controller' => 'Horadric_Application#scrape');
 $routes['horadric_forums'] = array('/forums', 'append_segments' => TRUE, 'controller' => 'Forum_Application#index', 'theme' => 'horadric');
@@ -47,7 +48,6 @@ $routes['horadric'] = array('/', 'controller' => 'Horadric_Application#home', 't
 $routes['horadric_sitemap'] = array('/sitemap', 'controller' => 'Horadric_Application#sitemap', 'theme' => 'horadric');
 $routes['cain'] = array('/cain', 'controller' => 'Horadric_Application#cain', 'theme' => 'horadric');
 $routes['cain_post'] = array('/cain/:thread_id', 'controller' => 'Horadric_Application#cain_thread', 'theme' => 'horadric');
-$routes['d3item'] = array('/item/:item_id', 'controller' => 'Horadric_Application#item', 'theme' => 'horadric');
 $routes['d2runeword'] = array('/runeword', 'controller' => 'Horadric_D2_Runeword_Application#index', 'theme' => 'horadric');
 $routes['horadric_guides'] = array('/guides/', 'append_segments' => TRUE, 'controller' => 'Horadric_Application#guides');
 $routes['horadric_guide'] = array('/guide/', 'append_segments' => TRUE,' controller' => 'Horadric_Application#guide');
