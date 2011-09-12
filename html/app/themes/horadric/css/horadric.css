@@ -108,7 +108,8 @@ h1 + .breadcrumb { margin-top: -20px; }
  * Item Qualities
  */
 .quality-junk { color: #666; }
-.quality-common { color: #ccc; }
+.quality-common, .quality-inferior { color: #ccc; }
+a.quality-common:hover, a.quality-inferior:hover { color: #fff; }
 .quality-magic { color: #66f; }
 .quality-rare { color: #ff0; }
 .quality-unique { color: #800; }
@@ -116,6 +117,9 @@ a.quality-unique:hover { color: #911; }
 .quality-legendary { color: #f80; }
 .quality-runestone { color: #508; }
 .quality-artifact { color: #060; }
+
+a.quality-common, a.quality-inferior, a.quality-unique, a.quality-legendary { text-decoration: none; }
+a:hover { text-decoration: underline; }
 
 /**
  * Hover Colors (Item Links)
@@ -169,7 +173,7 @@ table.forum-threads td.thread-name { width: 100%; }
 
 /** Database Output **/
 table.database { width: 100%; background-color: rgba(0,0,0,0.5); }
-table.database thead th { border: 1px solid #222; border-top: 1px solid #555; border-left: 1px solid #555; background-color: #333; color: #fff; }
+table.database th { border: 1px solid #222; border-top: 1px solid #555; border-left: 1px solid #555; background-color: #333; color: #fff; }
 table.database td { border: 1px solid #222; }
 table.database th, table.database td { padding: 5px 10px 5px 10px; text-align: center; }
 table.database th:first-child, table.database td:first-child { text-align: left; }

@@ -583,7 +583,7 @@ file_put_contents($cache_path, $output);
 
         $this->data['item'] = $item;
 
-        return $this->view->render('item');
+        return $this->view->render('item', $this->data);
     }
 
     public function news($args)

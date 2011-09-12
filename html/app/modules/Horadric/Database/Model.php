@@ -21,15 +21,7 @@ class Horadric_Database_Model extends Exo_Model
 
     public function get_item_by_url($url)
     {
-        $items = $this->get_items();
-        foreach ($items as $item)
-        {
-            if ($item->url == $url);
-            {
-                return $item;
-            }
-        }
-        return NULL;
+        return $this->get_items(array('url' => $url));
     }
 
     /**
@@ -44,6 +36,17 @@ class Horadric_Database_Model extends Exo_Model
             $item->url = $this->db->get_unique_url($item->name, 'items');
         }
         return $this->db->insert('items', $item);
+    }
+
+    /**
+     * Edit an item in the database
+     * @param int $id
+     * @param object $item
+     * @return int id
+     */
+    public function edit_item($id, $item)
+    {
+        return $this->db->update('items', $id, $item);
     }
 
     /**
@@ -63,6 +66,7 @@ class Horadric_Database_Model extends Exo_Model
         $options = array_merge(array(
             'order_by' => array('i.name asc'),
             'diablo_id' => NULL,
+            'url' => NULL,
             'where' => array(),
             'amount' => NULL
         ), $options);
@@ -71,6 +75,10 @@ class Horadric_Database_Model extends Exo_Model
         {
             $options['where'][] = 'i.diablo_id = :diablo_id';
             $values[':diablo_id'] = $options['diablo_id'];
+            $options['amount'] = 1;
+        } elseif ($options['url'] !== NULL) {
+            $options['where'][] = 'i.url = :url';
+            $values[':url'] = $options['url'];
             $options['amount'] = 1;
         }
 
@@ -87,6 +95,7 @@ class Horadric_Database_Model extends Exo_Model
         } else {
             $result = $this->db->query_all($sql, $values);
         }
+
         return $result;
     }
 }

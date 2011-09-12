@@ -224,7 +224,6 @@ $reader = new Item_Reader();
 
 // get the names and notes of items
 $datas = $reader->get_items();
-var_dump(count($datas));
 foreach ($datas as $row)
 {
     $item = $model->get_item_by_diablo_id($row->diablo_id);
@@ -234,4 +233,19 @@ foreach ($datas as $row)
     {
         $model->add_item($row);
     }
+}
+
+// get the stats on each of the items
+$datas = $reader->get_items_data();
+foreach ($datas as $row)
+{
+    $item = $model->get_item_by_diablo_id($row->diablo_id);
+
+    // if the item doesn't exist, create it
+    if (!$item)
+    {
+        continue;
+    }
+
+    $model->edit_item($item->id, $row);
 }

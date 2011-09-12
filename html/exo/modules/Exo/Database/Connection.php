@@ -108,7 +108,7 @@ class Exo_Database_Connection extends PDO
 
         foreach ($data as $field => $value)
         {
-            $updates = sprintf('%s = :%s', $field, $field);
+            $updates[] = sprintf('%s = :%s', $field, $field);
             if (substr($field, 5) == 'date_' && is_numeric($value) && $value !== NULL)
             {
                 $values[':' . $field] = date('Y-m-d H:i:s', $value);
@@ -199,7 +199,7 @@ class Exo_Database_Connection extends PDO
             'where' => NULL,
             'order_by' => NULL,
             'amount' => NULL,
-            'offset' => 0
+            'offset' => NULL 
         );
         $options = array_merge($defaults, $options);
 

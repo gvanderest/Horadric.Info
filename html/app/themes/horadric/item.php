@@ -5,35 +5,31 @@
 $_title = $item->name;
 $_description = $item->quality . ' ' . ucwords($item->quality) . ' ' . ucwords($item->type);
 include_once($this->theme_path . '/inc/header.php');
+
+$_fields = array(
+    'name' => 'Name',
+    'quality' => 'Quality',
+    'flavor' => 'Flavor Text',
+    'gold' => 'Gold Value', 
+    'ilvl' => 'Item Level',
+    'clvl' => 'Character Level',
+    'sockets_max' => 'Maximum Sockets'
+    );
 ?>
 
 <div id="view-item">
-    <h1>Items</h1>
-    <p style="color: red;"><strong>THIS SECTION IS HEAVILY UNDER CONSTRUCTION AS THE GAME HAS NOT BEEN RELEASED OFFICIALLY AND SYSTEMS MAY CHANGE DRASTICALLY</strong></p>
+    <h1><?= $item->name ?></h1>
 
 <table class="database">
-    <thead>
-        <th>Item Name</th>
-        <th>Quality</th>
-        <th>Type</th>
-    </thead>
-    <tbody>
-        <?php foreach ($items as $item): ?>
-            <tr>
-                <td><a class="quality-<?= $item->quality ?>" href="/item/<?= $item->url ?>"><?= $item->name ?></a></td>
-                <td><?= ucwords($item->quality) ?></td>
-                <?php if ($item->type == 'weapon'): ?>
-                    <td>Weapon - <?= (in_array($item->weapon_type, array('mace', 'sword', 'axe'))) ? ($item->hands . 'H') : '' ?> <?= ucwords($item->weapon_type) ?></td>
-                <?php elseif ($item->type == 'armor'): ?>
-                    <td>Armor - <?= ucwords($item->armor_type) ?></td>
-                <?php else: ?>
-                <?php endif; ?>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
+<?php foreach ($_fields as $_key => $_label): ?>
+    <tr>
+        <th><?= $_label ?></th>
+        <td><?= ucwords($item->$_key) ?></td>
+    </tr>
+<?php endforeach; ?>
 </table>
 
-</div> <!-- #view-items -->
+</div> <!-- #view-item -->
 
 <?php 
 include_once($this->theme_path . '/inc/footer.php');
