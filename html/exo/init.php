@@ -5,7 +5,7 @@
  */
 
 define('EXO', TRUE);
-if(!defined('__DIR__')) { $iPos = strrpos(__FILE__, "/"); define("__DIR__", substr(__FILE__, 0, $iPos) . "/"); } 
+if(!defined('__DIR__')) { define('__DIR__', dirname(__FILE__)); } 
  
 // load configuration files (to keep the variables global, and not in a class)
 require_once(__DIR__ . '/config/config.php');

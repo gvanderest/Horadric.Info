@@ -11,13 +11,13 @@ class Item_Reader
         if ($filename === NULL)
         {
             $filenames = array(
-                /*'../data/mpq/Items_Armor.gam',
-                '../data/mpq/Items_Legendary.gam',*/
-                '../data/mpq/Items_Legendary_Other.gam'/*,
+                '../data/mpq/Items_Armor.gam',
+                '../data/mpq/Items_Legendary.gam',
+                '../data/mpq/Items_Legendary_Other.gam',
                 '../data/mpq/Items_Legendary_Weapons.gam',
                 '../data/mpq/Items_Other.gam',
                 '../data/mpq/Items_Quests_Beta.gam',
-                '../data/mpq/Items_Weapons.gam'*/
+                '../data/mpq/Items_Weapons.gam'
             );
 
             $data = array();
@@ -43,11 +43,12 @@ class Item_Reader
             
             $y++;
 
-            $item->id = $read;
+            $item->diablo_id = $read;
+            /*
             var_dump("===============================");
             var_dump($item->id);
             var_dump("===============================");
-
+            */
             $fields = array(
                 //0 => array('subtype_maybe', 'int'),
                 //2 => array('type_maybe_or_quality', 'int'),
@@ -72,13 +73,13 @@ class Item_Reader
                 $float = unpack('f', $raw);
                 $long = unpack('L', $raw);
                 if ($y < 10 && $x < 20)
-                printf("(@%s:%d) %sint: %s, float: %s\n", 
+                /*printf("(@%s:%d) %sint: %s, float: %s\n", 
                     dechex($pos), 
                     $x, 
                     (isset($fields[$x]) ? '[' . $fields[$x][0] . '] ' : ''), 
                     $int[1], 
                     (float)$float[1]
-                );
+                );*/
 
                 if (isset($fields[$x]))
                 {
@@ -90,6 +91,11 @@ class Item_Reader
                 }
             }
             if (!isset($count)) { $count = 0; }
+            
+            foreach ($item as $key => $value)
+            {
+                $item->$key = trim($value);
+            }
             $output[] = $item;
         }
 
@@ -136,13 +142,22 @@ class Item_Reader
                             {
                                 // append item
                                 $item = new stdClass;
-                                $item->id = $item_id;
+                                $item->diablo_id = $item_id;
                                 $item->name = $item_name;
                                 $item->notes = $item_notes;
+                                $item->quality = 'inferior';
+
+                                if (preg_match('/Unique/i', $item->diablo_id))
+                                {
+                                    $item->quality = 'legendary';
+                                } elseif (preg_match('/Rare/i', $item->diablo_id)) {
+                                    $item->quality = 'rare';
+                                }
+
 
                                 foreach ($item as $key => $value)
                                 {
-                                    $item->$key = str_replace("\n", '', $value);
+                                    $item->$key = trim($value);
                                 }
 
                                 $items[] = $item;
@@ -189,33 +204,34 @@ class Item_Reader
 
         // append final
         $item = new stdClass;
-        $item->id = $item_id;
+        $item->diablo_id = $item_id;
         $item->name = $item_name;
         $item->notes = $item_notes;
         foreach ($item as $key => $value)
         {
-            $item->$key = str_replace("\n", '', $value);
+            $item->$key = trim($value);
         }
         $items[] = $item;
-
-        var_dump(count($items));
-        var_dump($items[0]);
-        var_dump($items[count($items)-1]);
         return $items;
     }
 }
 
-$reader = new Item_Reader();
-/*
-$items = $reader->get_items();
-print(count($items));
-foreach ($items as $item)
-{
-    if ($item->id == 'Bracers_201')
-    printf("ID: %s, Name: %s, Notes: %s\n", $item->id, $item->name, $item->notes);
-}
-*/
+$_SERVER['DOCUMENT_ROOT'] = dirname(__FILE__) . '/../html/';
+require_once('../html/exo/init.php');
 
-$datas = $reader->get_items_data();
-//var_dump($datas);
+$model = new Horadric_Database_Model();
+$reader = new Item_Reader();
+
+// get the names and notes of items
+$datas = $reader->get_items();
 var_dump(count($datas));
+foreach ($datas as $row)
+{
+    $item = $model->get_item_by_diablo_id($row->diablo_id);
+
+    // if the item doesn't exist, create it
+    if (!$item)
+    {
+        $model->add_item($row);
+    }
+}

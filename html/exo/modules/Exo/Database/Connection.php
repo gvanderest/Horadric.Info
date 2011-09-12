@@ -16,6 +16,7 @@ class Exo_Database_Connection extends PDO
     public function get_unique_url($input, $table, $url_field = 'url')
     {
         $url = strtolower(trim($input));
+        $url = str_replace(array("'", '"'), '', $url);
         $url = preg_replace('/[^a-z0-9]+/', '-', $url);
         $url = preg_replace('/-+/', '-', $url);
         $url = trim($url, '-');
@@ -260,8 +261,8 @@ class Exo_Database_Connection extends PDO
                         $row->$field = strtotime($value);   
                     }
                 }
+                return $row;
             }
-            return $row;
         }
         return NULL;
     }
@@ -299,8 +300,8 @@ class Exo_Database_Connection extends PDO
                         }
                     }
                 }
+                return $rows;
             }
-            return $rows;
         }
         return array();
     }

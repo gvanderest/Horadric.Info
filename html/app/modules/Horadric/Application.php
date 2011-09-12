@@ -562,17 +562,9 @@ file_put_contents($cache_path, $output);
 
     public function items($args)
     {
+        $model = new Horadric_Database_Model();
 
-        $items = array();
-        foreach ($raw_items as $row)
-        {
-            $obj = new stdClass;
-            foreach ($row as $key => $value)
-            {   
-                $obj->$key = $value;
-            }
-            $items[] = $obj;
-        }
+        $items = $model->get_items();
 
         $this->data['items'] = $items;
 

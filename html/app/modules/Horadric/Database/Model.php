@@ -4,7 +4,7 @@
  * @author Guillaume VanderEst <gui@exoduslabs.ca>
  * @package horadric
  */
-class Horadric_Database_Model
+class Horadric_Database_Model extends Exo_Model
 {
     public function get_item($id)
     {
@@ -32,54 +32,61 @@ class Horadric_Database_Model
         return NULL;
     }
 
-    public function get_items()
+    /**
+     * Add an item to the database
+     * @param object $item
+     * @return int id
+     */
+    public function add_item($item)
     {
-        $raw_items = array(
-            array('url' => 'flesh-tearer', 'type' => 'weapon', 'name' => 'Flesh Tearer', 'quality' => 'unique', 'weapon_type' => 'axe', 'hands' => 1),
-            array('url' => 'etrayu', 'type' => 'weapon', 'name' => 'Etrayu', 'quality' => 'unique', 'weapon_type' => 'bow', 'hands' => 2),
-            array('url' => 'demon-machine', 'type' => 'weapon', 'name' => 'Demon Machine', 'quality' => 'unique', 'weapon_type' => 'crossbow', 'hands' => 2),
-            array('url' => 'manticore', 'type' => 'weapon', 'name' => 'Manticore', 'quality' => 'unique', 'weapon_type' => 'crossbow', 'hands' => 2),
-            array('url' => 'starspine', 'type' => 'weapon', 'name' => 'Starspine', 'quality' => 'unique', 'weapon_type' => 'crossbow', 'hands' => 2),
-            array('name' => 'Bakkan Caster', 'url' => 'bakkan-caster', 'type' => 'weapon', 'quality' => 'unique', 'weapon_type' => 'crossbow', 'hands' => 2),
-            array('name' => 'Crossfire', 'url' => 'crossfire', 'type' => 'weapon', 'quality' => 'unique', 'weapon_type' => 'crossbow', 'hands' => 2),
-            array('name' => 'Peacemaker', 'url' => 'peacemaker', 'type' => 'weapon', 'quality' => 'unique', 'weapon_type' => 'crossbow', 'hands' => 2),
-            array('name' => 'The Riveter', 'url' => 'the-riveter', 'type' => 'weapon', 'quality' => 'unique', 'weapon_type' => 'crossbow', 'hands' => 2),
-            array('name' => 'Shock Bolt Launcher', 'url' => 'shock-bolt-launcher', 'type' => 'weapon', 'quality' => 'unique', 'weapon_type' => 'crossbow', 'hands' => 2),
-            array('name' => 'Echoing Fury', 'url' => 'echoing-fury', 'type' => 'weapon', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 1),
-            array('name' => 'Odyn Son', 'url' => 'odyn-son', 'type' => 'weapon', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 1),
-            array('name' => 'Neanderthal', 'url' => 'neanderthal', 'type' => 'weapon', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 1),
-            array('name' => 'Devastator', 'url' => 'devastator', 'type' => 'weapon', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 1),
-            array('name' => 'Nutcracker', 'url' => 'nutcracker', 'type' => 'weapon', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 1),
-            array('name' => 'Dai Bachi', 'url' => 'dai-bachi', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 1, 'type' => 'weapon'),
-            array('name' => 'Telranden\'s Hand', 'url' => 'telrandens-hand', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 1, 'type' => 'weapon'),
-            array('name' => 'Nailbiter', 'url' => 'nailbiter', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 1, 'type' => 'weapon'),
-            array('name' => 'Earthshatter', 'url' => 'earthshatter', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 1, 'type' => 'weapon'),
-            array('name' => 'Wooden Leg', 'url' => 'wooden-leg', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 1, 'type' => 'weapon'),
-            array('name' => 'The Incubuster', 'url' => 'the-incubuster', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 1, 'type' => 'weapon'),
-            array('name' => 'Crushbane', 'url' => 'crushbane', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 1, 'type' => 'weapon'),
-            array('name' => 'Sister Sledge', 'url' => 'sister-sledge', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 2, 'type' => 'weapon'),
-            array('name' => 'Boneshatter', 'url' => 'boneshatter', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 2, 'type' => 'weapon'),
-            array('name' => 'Groundpounder', 'url' => 'groundpounder', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 2, 'type' => 'weapon'),
-            array('name' => 'Rockbreaker', 'url' => 'rockbreaker', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 2, 'type' => 'weapon'),
-            array('name' => 'Cataclysm', 'url' => 'cataclysm', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 2, 'type' => 'weapon'),
-            array('name' => 'Overfiend', 'url' => 'overfiend', 'quality' => 'unique', 'weapon_type' => 'mace', 'hands' => 2, 'type' => 'weapon'),
-            array('url' => 'leather-hood', 'type' => 'armor', 'name' => 'Leather Hood', 'quality' => 'common', 'armor_type' => 'helm'),
-            array('url' => 'skull-cap', 'type' => 'armor', 'name' => 'Skull Cap', 'quality' => 'common', 'armor_type' => 'helm'),
-            array('url' => 'coif', 'type' => 'armor', 'name' => 'Coif', 'quality' => 'common', 'armor_type' => 'helm'),
-            array('url' => 'scale-helmet', 'type' => 'armor', 'name' => 'Scale Helmet', 'quality' => 'common', 'armor_type' => 'helm'),
-            array('url' => 'arming-cap', 'type' => 'armor', 'name' => 'Arming Cap', 'quality' => 'common', 'armor_type' => 'helm'),
-            array('url' => 'plated-helm', 'type' => 'armor', 'name' => 'Plated Helm', 'quality' => 'common', 'armor_type' => 'helm'),
-            array('url' => '', 'type' => 'armor', 'name' => 'Plated Helm', 'quality' => 'common', 'armor_type' => 'helm')
-        );  
-
-        $items = array();
-        foreach ($raw_items as $index => $raw_item)
+        if (!isset($item->url))
         {
-            $item = (object)$raw_item;
-            $item->id = $index + 1;
-            $items[] = $item;
+            $item->url = $this->db->get_unique_url($item->name, 'items');
+        }
+        return $this->db->insert('items', $item);
+    }
+
+    /**
+     * Get an item by its diablo_id
+     * @param string $diablo_id
+     * @return object or NULL on failure
+     */
+    public function get_item_by_diablo_id($diablo_id)
+    {
+        $result = $this->get_items(array('diablo_id' => $diablo_id));
+        return $result;
+    }
+
+    public function get_items($options = array())
+    {
+        $values = array();
+        $options = array_merge(array(
+            'order_by' => array('i.name asc'),
+            'diablo_id' => NULL,
+            'where' => array(),
+            'amount' => NULL
+        ), $options);
+
+        if ($options['diablo_id'] !== NULL)
+        {
+            $options['where'][] = 'i.diablo_id = :diablo_id';
+            $values[':diablo_id'] = $options['diablo_id'];
+            $options['amount'] = 1;
         }
 
-        return $items;
+        $sql = "
+            SELECT i.*
+            FROM items i
+        ";
+
+        $sql = $this->db->get_select_sql($sql, $options);
+
+        if ($options['amount'] == 1)
+        {
+            $result = $this->db->query_one($sql, $values);
+        } else {
+            $result = $this->db->query_all($sql, $values);
+        }
+        return $result;
     }
 }
