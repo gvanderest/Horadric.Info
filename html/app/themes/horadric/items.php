@@ -22,12 +22,7 @@ include_once($this->theme_path . '/inc/header.php');
             <tr>
                 <td><a class="quality-<?= $item->quality ?>" href="/item/<?= $item->url ?>"><?= $item->name ?></a></td>
                 <td><?= ucwords($item->quality) ?></td>
-                <?php if ($item->type == 'weapon'): ?>
-                    <td>Weapon - <?= (in_array($item->weapon_type, array('mace', 'sword', 'axe'))) ? ($item->hands . 'H') : '' ?> <?= ucwords($item->weapon_type) ?></td>
-                <?php elseif ($item->type == 'armor'): ?>
-                    <td>Armor - <?= ucwords($item->armor_type) ?></td>
-                <?php else: ?>
-                <?php endif; ?>
+                <td><?= ucwords($item->type) ?></td>
             </tr>
         <?php endforeach; ?>
     </tbody>

@@ -107,9 +107,11 @@ h1 + .breadcrumb { margin-top: -20px; }
 /**
  * Item Qualities
  */
-.quality-junk { color: #666; }
-.quality-common, .quality-inferior { color: #ccc; }
-a.quality-common:hover, a.quality-inferior:hover { color: #fff; }
+.quality-lore { color: #0a0; }
+a.quality-lore:hover { color: #2c2; }
+.quality-inferior, .quality-junk { color: #666; }
+.quality-common, .quality-superior { color: #ccc; }
+a.quality-common:hover, a.quality-superior:hover { color: #fff; }
 .quality-magic { color: #66f; }
 .quality-rare { color: #ff0; }
 .quality-unique { color: #800; }
@@ -118,7 +120,7 @@ a.quality-unique:hover { color: #911; }
 .quality-runestone { color: #508; }
 .quality-artifact { color: #060; }
 
-a.quality-common, a.quality-inferior, a.quality-unique, a.quality-legendary { text-decoration: none; }
+a.quality-common, a.quality-runestone, a.quality-quest, a.quality-lore, a.quality-superior, a.quality-inferior, a.quality-unique, a.quality-legendary { text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 /**

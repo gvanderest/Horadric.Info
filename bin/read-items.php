@@ -484,13 +484,12 @@ class Item_Reader
             elseif (preg_match('/(Life Steal|Health|Extension|Speed|Impact)/', $item->name)) { $item->subtype = ''; }
             else { var_dump($item->name); exit('rune color not fetched'); }
             $item->slot = 'inventory';
-        } elseif (preg_match('/(GhostKnight|Turnin|Artifact|SkeletonKing|TestBook|Doll|Backpack|CathedralIdol|ArcanaObscurum|Bellows|CultistHead|^Act|ChaosShard|SwordOfJustice|TownAttackCellar|Relic|Orders|BlackMushroom|Map|Ledger|Quest|Key)/i', $item->diablo_id)) {
+            $item->quality = 'runestone';
+        } else /*if (preg_match('/(GhostKnight|Turnin|Artifact|SkeletonKing|TestBook|Doll|Backpack|CathedralIdol|ArcanaObscurum|Bellows|CultistHead|^Act|ChaosShard|SwordOfJustice|TownAttackCellar|Relic|Orders|BlackMushroom|Map|Ledger|Quest|Key)/i', $item->diablo_id))*/ {
             $item->type = 'quest';
             $item->subtype = '';
             $item->slot = 'inventory';
             $item->quality = 'quest';
-        } else {
-            var_dump('ERROR: ' . $item->diablo_id);
         }
     }
 }
