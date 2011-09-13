@@ -132,7 +132,10 @@ class Item_Reader
                 if ($null_count == 1)
                 {
                     $item_part++;
-                } elseif ($null_count >= 9) { 
+
+                // if the item is in part 2 and there is a null count >= 9, reset to 1
+                } elseif ($item_part == 2 && $null_count >= 9) { 
+
                     $item_part = 1;
                     continue;
                 }
@@ -141,8 +144,8 @@ class Item_Reader
                 $buffer .= $char;
             }
 
-            // if the string was the third part or the null count is above 10, parse the item and return to first part
-            if (($null_count == 1 && $item_part > 3))
+            // if the string was the third part or the null count is >= 9 and was in second part, parse the item and return to first part
+            if ($null_count == 1 && $item_part > 3 || $char_count == 1 && $item_part == 3 && $null_count >= 9 && !empty($item->diablo_id))
             {
                 // append item and restart process
                 // clean the string up (nulls and such are very dirty)
@@ -154,6 +157,12 @@ class Item_Reader
 
                 $item = new stdClass;
                 $item_part = 1;
+
+                // everything got reset
+                if ($char_count == 1)
+                {
+                    continue;
+                }
             }
 
             switch ($item_part)
@@ -161,7 +170,7 @@ class Item_Reader
                 case 1: $item->diablo_id = $buffer; break;
                 case 2: $item->name = $buffer; break;
                 case 3: $item->notes = $buffer; break;
-                default: var_dump($null_count); var_dump($item_part); throw new Exception('Reached invalid item_part setting'); exit();
+                default: throw new Exception('Reached invalid item_part setting'); exit();
             }
 
             // set the opposite counter to zero now and clear buffer
@@ -198,7 +207,11 @@ class Item_Reader
             $item->type = 'armor';
             $item->slot = 'pants';
             $item->subtype = $item->slot;
-        } elseif (preg_match('/Helm/i', $item->diablo_id)) {
+        } elseif (preg_match('/WizardHat/i', $item->diablo_id)) {
+            $item->type = 'armor';
+            $item->slot = 'helm';
+            $item->subtype = 'wizardhat';
+        } elseif (preg_match('/(Hood|Helm)/i', $item->diablo_id)) {
             $item->type = 'armor';
             $item->slot = 'helm';
             $item->subtype = $item->slot;
@@ -214,11 +227,11 @@ class Item_Reader
             $item->type = 'armor';
             $item->slot = 'cloak';
             $item->subtype = $item->slot;
-        } elseif (preg_match('/Boots/i', $item->diablo_id)) {
+        } elseif (preg_match('/Boots?/i', $item->diablo_id)) {
             $item->type = 'armor';
             $item->slot = 'boots';
             $item->subtype = $item->slot;
-        } elseif (preg_match('/Shoulders/i', $item->diablo_id)) {
+        } elseif (preg_match('/Shoulders?/i', $item->diablo_id)) {
             $item->type = 'armor';
             $item->slot = 'shoulders';
             $item->subtype = $item->slot;
@@ -226,7 +239,7 @@ class Item_Reader
             $item->type = 'armor';
             $item->slot = 'belt';
             $item->subtype = $item->slot;
-        } elseif (preg_match('/Bracers/i', $item->diablo_id)) {
+        } elseif (preg_match('/Bracers?/i', $item->diablo_id)) {
             $item->type = 'armor';
             $item->slot = 'bracers';
             $item->subtype = $item->slot;
@@ -262,6 +275,10 @@ class Item_Reader
             $item->type = 'weapon';
             $item->subtype = 'axe';
             $item->slot = 'twohand';
+        } elseif (preg_match('/(Rod|Scepter)/i', $item->diablo_id)) {
+            $item->type = 'weapon';
+            $item->subtype = 'combatstaff';
+            $item->slot = 'onehand';
         } elseif (preg_match('/CombatStaff_2H/i', $item->diablo_id)) {
             $item->type = 'weapon';
             $item->subtype = 'combatstaff';
@@ -274,7 +291,7 @@ class Item_Reader
             $item->type = 'weapon';
             $item->subtype = 'fistweapon';
             $item->slot = 'onehand';
-        } elseif (preg_match('/Mace_1H/i', $item->diablo_id)) {
+        } elseif (preg_match('/(Club|Mace_1H)/i', $item->diablo_id)) {
             $item->type = 'weapon';
             $item->subtype = 'mace';
             $item->slot = 'onehand';
@@ -286,7 +303,7 @@ class Item_Reader
             $item->type = 'weapon';
             $item->subtype = 'polearm';
             $item->slot = 'twohand';
-        } elseif (preg_match('/Sword_1H/i', $item->diablo_id)) {
+        } elseif (preg_match('/(BladeOf|WarSword|Sword_1H)/i', $item->diablo_id)) {
             $item->type = 'weapon';
             $item->subtype = 'sword';
             $item->slot = 'onehand';
@@ -372,13 +389,9 @@ class Item_Reader
             $item->subtype = '';
             $item->slot = 'inventory';
             $item->quality = 'lore';
-        } elseif (preg_match('/Scroll/i', $item->diablo_id)) {
-            $item->type = 'scroll';
-            $item->subtype = '';
-            $item->slot = 'inventory';
-        } elseif (preg_match('/Elixir/i', $item->diablo_id)) {
-            $item->type = 'elixir';
-            $item->subtype = '';
+        } elseif (preg_match('/(Scroll|VialOf|RespecTome|Elixir|Potion)/i', $item->diablo_id)) {
+            $item->type = '';
+            $item->subtype = 'respec';
             $item->slot = 'inventory';
         } elseif (preg_match('/Event/i', $item->diablo_id)) {
             $item->type = 'quest';
@@ -400,13 +413,84 @@ class Item_Reader
             $item->type = 'quest';
             $item->subtype = '';
             $item->slot = 'inventory';
-        } elseif (preg_match('/(SwordOfJustice|TownAttackCellar|Relic|Orders|BlackMushroom|Map|Ledger|Quest|Key)/i', $item->diablo_id)) {
+        } elseif (preg_match('/HealthGlobe/i', $item->diablo_id)) {
+            $item->type = 'globe';
+            $item->subtype = 'health';
+            $item->slot = 'ground';
+        } elseif (preg_match('/RejuvenationPotion/i', $item->diablo_id)) {
+            $item->type = 'potion';
+            $item->subtype = 'rejuvenation';
+            $item->slot = 'inventory';
+        } elseif (preg_match('/RestorationPotion/i', $item->diablo_id)) {
+            $item->type = 'potion';
+            $item->subtype = 'restoration';
+            $item->slot = 'inventory';
+        } elseif (preg_match('/Potion/i', $item->diablo_id)) {
+            $item->type = 'potion';
+            $item->subtype = '';
+            $item->slot = 'inventory';
+        } elseif (preg_match('/BlacksmithsTome/i', $item->diablo_id)) {
+            $item->type = 'tome';
+            $item->subtype = 'blacksmith';
+            $item->slot = 'inventory';
+        } elseif (preg_match('/Page/i', $item->diablo_id)) {
+            $item->type = 'tomepage';
+            $item->subtype = '';
+            $item->slot = 'inventory';
+        } elseif (preg_match('/TownPortalStone/i', $item->diablo_id)) {
+            $item->type = 'stone';
+            $item->subtype = '';
+            $item->slot = 'inventory';
+        } elseif (preg_match('/^Gold[1234]?$/i', $item->diablo_id)) {
+            $item->type = 'gold';
+            $item->subtype = '';
+            $item->slot = 'currency';
+        } elseif (preg_match('/Enchantment/i', $item->diablo_id)) {
+            $item->type = 'enchant';
+            $item->subtype = '';
+            $item->slot = 'inventory';
+        } elseif (preg_match('/^Rune([0-9]+)$/i', $item->diablo_id, $matches)) {
+            $item->type = 'rune';
+            $item->subtype = $matches[1];
+            $item->slot = 'inventory';
+        } elseif (preg_match('/^Gambling/i', $item->diablo_id, $matches)) {
+            $item->type = 'gambling';
+            $item->subtype = '';
+            $item->slot = 'gambling';
+        } elseif (preg_match('/(Amethyst|Diamond|Emerald|Ruby|Sapphire|Topaz|Skull)/i', $item->diablo_id, $matches)) {
+            $item->type = 'gem';
+            $item->subtype = '';
+            $item->slot = 'inventory';
+        } elseif (preg_match('/^CraftingPlan_Mystic_/i', $item->diablo_id)) {
+            $item->type = 'craftingplan';
+            $item->subtype = 'mystic';
+            $item->slot = 'inventory';
+        } elseif (preg_match('/^CraftingPlan_Smith_/i', $item->diablo_id)) {
+            $item->type = 'craftingplan';
+            $item->subtype = 'blacksmith';
+            $item->slot = 'inventory';
+        } elseif (preg_match('/^Crafting_/i', $item->diablo_id, $matches)) {
+            $item->type = 'crafting';
+            $item->subtype = '';
+            $item->slot = 'inventory';
+        } elseif (preg_match('/^(Runestone|Spellrune)/i', $item->diablo_id, $matches)) {
+            $item->type = 'runestone';
+            if (preg_match('/Crimson/', $item->name)) { $item->subtype = 'red'; }
+            elseif (preg_match('/Indigo/', $item->name)) { $item->subtype = 'blue'; }
+            elseif (preg_match('/Golden/', $item->name)) { $item->subtype = 'yellow'; }
+            elseif (preg_match('/Alabaster/', $item->name)) { $item->subtype = 'white'; }
+            elseif (preg_match('/Obsidian/', $item->name)) { $item->subtype = 'black'; }
+            elseif (preg_match('/Unattuned/', $item->name)) { $item->subtype = 'unattuned'; }
+            elseif (preg_match('/(Life Steal|Health|Extension|Speed|Impact)/', $item->name)) { $item->subtype = ''; }
+            else { var_dump($item->name); exit('rune color not fetched'); }
+            $item->slot = 'inventory';
+        } elseif (preg_match('/(GhostKnight|Turnin|Artifact|SkeletonKing|TestBook|Doll|Backpack|CathedralIdol|ArcanaObscurum|Bellows|CultistHead|^Act|ChaosShard|SwordOfJustice|TownAttackCellar|Relic|Orders|BlackMushroom|Map|Ledger|Quest|Key)/i', $item->diablo_id)) {
             $item->type = 'quest';
             $item->subtype = '';
             $item->slot = 'inventory';
+            $item->quality = 'quest';
         } else {
-            var_dump($item->diablo_id);
-            throw new Exception('Unknown type!');                                    
+            var_dump('ERROR: ' . $item->diablo_id);
         }
     }
 }
@@ -428,7 +512,15 @@ foreach ($datas as $row)
     // if the item doesn't exist, create it
     if (!$item)
     {
-        $model->add_item($row);
+        if (!$model->add_item($row))
+        {
+            exit('Unable to add item on basic attempt');
+        }
+    } else {
+        if (!$model->edit_item($item->id, $row))
+        {
+            exit('Unable to edit item on basic attempt');
+        }
     }
 }
 
@@ -438,11 +530,15 @@ foreach ($datas as $row)
 {
     $item = $model->get_item_by_diablo_id($row->diablo_id);
 
-    // if the item doesn't exist, create it
+    // if the item doesn't exist
     if (!$item)
     {
+        printf("%s not found for detailed data\n", $row->diablo_id);
         continue;
     }
 
-    $model->edit_item($item->id, $row);
+    if (!$model->edit_item($item->id, $row))
+    {
+        exit('Unable to edit item on complex data attempt');
+    }
 }

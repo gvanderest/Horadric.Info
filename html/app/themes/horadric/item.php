@@ -3,7 +3,7 @@
  * Diablo 3 Item View
  */
 $_title = $item->name;
-$_description = $item->quality . ' ' . ucwords($item->quality) . ' ' . ucwords($item->type);
+$_description = ucwords($item->quality) . ' ' . ucwords($item->subtype) . ' ' . ucwords($item->type);
 include_once($this->theme_path . '/inc/header.php');
 
 $_fields = array(
@@ -21,10 +21,10 @@ $_fields = array(
     <h1><?= $item->name ?></h1>
 
 <table class="database">
-<?php foreach ($_fields as $_key => $_label): ?>
+<?php foreach ($item as $_field => $_value): ?>
     <tr>
-        <th><?= $_label ?></th>
-        <td><?= ucwords($item->$_key) ?></td>
+        <th><?= ucwords($_field) ?></th>
+        <td><?= ucwords($_value) ?></td>
     </tr>
 <?php endforeach; ?>
 </table>
